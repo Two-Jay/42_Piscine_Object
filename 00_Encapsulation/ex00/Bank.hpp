@@ -1,14 +1,20 @@
-#ifndef __BANK_HPP__
-#define __BANK_HPP__
+// #ifndef __BANK_HPP__
+// #define __BANK_HPP__
 
-#include <map>
-#include "Account.hpp"
+// #include <map>
+// #include "Account.hpp"
 
-class Bank {
-    private :
-        std::map<unsigned int, Account> storage;
+// class Bank {
+//     private :
+//         std::map<unsigned int, Account> storage;
 
-    public :
-}
+//     public :
+//         void add(Account &account);
+//         void remove(unsigned int account_id);
+//         Account &search(unsigned int id);
+//         size_t len(void) const;
 
-#endif
+//         friend std::otream &operator<<(std::ostream &os, const Bank &bank);
+// }
+
+// #endif

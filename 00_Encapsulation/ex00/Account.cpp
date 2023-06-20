@@ -19,8 +19,8 @@ Account::Account(int value) {
 }
 
 Account::Account(const Account &origin) {
-    this->setId(origin.getId());
-    this->setValue(origin.getValue());
+    this->id = origin.getId();
+    this->value = origin.getValue();
 }
 
 Account::~Account() {}
@@ -33,18 +33,10 @@ unsigned int Account::getId(void) const {
     return this->id;
 }
 
-void Account::setId(unsigned int id) {
-    this->id = id;
-}
-
-void Account::setValue(unsigned int value) {
-    this->value = value;
-}
-
 Account &Account::operator=(const Account &ref) {
     if (this != &ref) {
-        this->setId(ref.getId());
-        this->setValue(ref.getValue());
+        this->id = ref.getId();
+        this->value = ref.getValue();
     }
     return *this;
 }

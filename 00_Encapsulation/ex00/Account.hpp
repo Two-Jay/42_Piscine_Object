@@ -18,15 +18,12 @@ class Account {
         Account(const Account &origin);
         Account &operator=(const Account &ref);
 
-        void setId(unsigned int id);
-        void setValue(unsigned int value);
         unsigned int getValue(void) const;
         unsigned int getId(void) const;
 
-
-        friend std::ostream &operator<<(std::ostream &os, const Account &ref);
-
         ~Account();
 };
+
+std::ostream &operator<<(std::ostream &os, const Account &ref);
 
 #endif
