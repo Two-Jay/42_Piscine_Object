@@ -22,7 +22,7 @@ $(NAME) : $(OBJ)
 	$(CC) $(CFLAGS) $(VERSION) $(OBJ) -o $(NAME)
 
 clean :
-	rm -rf $(OBJ)
+	rm -rf $(OBJ_DIR)
 
 fclean :
 	@$(MAKE) clean
