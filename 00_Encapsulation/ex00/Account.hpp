@@ -6,7 +6,6 @@
 class Account {
     private :
         static unsigned int ACCOUNT_ID_INDEX;
-        static unsigned int ACCOUNT_DEFAULT_VALUE;
 
         unsigned int id;
         unsigned int value;

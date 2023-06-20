@@ -1,7 +1,8 @@
 #include "Account.hpp"
 
+#define ACCOUNT_DEFAULT_VALUE 0
+
 unsigned int Account::ACCOUNT_ID_INDEX = -1;
-unsigned int Account::ACCOUNT_DEFAULT_VALUE = 0;
 
 int Account::initialize_account_id() {
     return ++Account::ACCOUNT_ID_INDEX;
