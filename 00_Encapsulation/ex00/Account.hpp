@@ -10,18 +10,13 @@ class Account {
         unsigned int id;
         unsigned int value;
 
-        int initialize_account_id();
-
     public :
         Account();
-        Account(int value);
         Account(const Account &origin);
         Account &operator=(const Account &ref);
 
         unsigned int getValue(void) const;
         unsigned int getId(void) const;
-
-        ~Account();
 };
 
 std::ostream &operator<<(std::ostream &os, const Account &ref);
