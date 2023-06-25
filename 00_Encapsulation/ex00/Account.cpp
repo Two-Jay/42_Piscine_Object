@@ -15,8 +15,6 @@ Account::Account(const Account &origin) {
     this->value = origin.getValue();
 }
 
-Account::~Account() {}
-
 unsigned int Account::getValue(void) const {
     return this->value;
 }
@@ -34,5 +32,5 @@ Account &Account::operator=(const Account &ref) {
 }
 
 std::ostream &operator<<(std::ostream &os, const Account &ref) {
-    return os << "[" << ref.getId() << "] - [" << ref.getValue() << "]";
+    return os << "[ Account No." << ref.getId() << " - Balance : $" << ref.getValue() << " ]";
 }

@@ -48,8 +48,8 @@
 // }
 
 int main() {
-	Account acc1 = Account(100);
-	Account acc2 = Account(200);
+	Account acc1 = Account();
+	Account acc2 = Account();
 	
 	std::cout << acc1 << std::endl;
 	std::cout << acc2 << std::endl;
