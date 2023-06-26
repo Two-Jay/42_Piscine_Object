@@ -11,13 +11,13 @@ class Bank {
 		AccountFeeManager accountFeeManager;
 		int liquidity;
 
-		void setLiquidity(int liquidity);
-		int getLiquidity(void) const;
-
 	public :
 		Bank();
 		Bank(int liquidity);
 		~Bank();
+
+		int getLiquidity(void) const;
+		AccountManager &getAccountManager(void) const;
 
 		bool addAccount(Account *account);
 		bool removeAccount(Account *account);
