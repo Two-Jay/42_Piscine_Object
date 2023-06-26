@@ -20,7 +20,13 @@ namespace test_kit {
 
 namespace ex00_testfield {
     void account_test() {
-        test_kit::printPassInformPrint("account_test");
+        std::string testcase_name = "account_test";
+        Account acc1 = Account();
+        Account acc2 = Account();
+        
+        test_kit::isTruePass((acc1.getValue() == 0), testcase_name);
+        test_kit::isTruePass((acc2.getValue() == 0), testcase_name);
+        test_kit::printPassInformPrint(testcase_name);
     }
 }
 
