@@ -32,6 +32,8 @@ class AccountManager {
 
 #include "Account.hpp"
 
+
 std::ostream &operator<<(std::ostream &os, const AccountManager &ref);
+void assertInvalidAccount(bool condition, std::string msg);
 
 #endif

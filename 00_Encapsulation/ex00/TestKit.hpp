@@ -16,6 +16,10 @@ namespace test_kit {
     void printPassInformPrint(const std::string &name) {
         std::cout << GRNB << " [ test \'" << name << "\' PASSED] " << reset << std::endl;
     }
+
+    void printFailedInformPrint(const std::string &name) {
+        std::cout << REDB << " [ test \'" << name << "\' FAILED] " << reset << std::endl;
+    }
 }
 
 namespace ex00_testfield {
@@ -34,37 +38,42 @@ namespace ex00_testfield {
         test_kit::isTruePass((acc1.getValue() == 0), __PRETTY_FUNCTION__);
         test_kit::isTruePass((acc2.getValue() == 0), __PRETTY_FUNCTION__);
 
+        try {
+            AccountManager manager = AccountManager();
+            test_kit::isTruePass((manager.size() == 0), __PRETTY_FUNCTION__);
 
-        AccountManager manager = AccountManager();
-        test_kit::isTruePass((manager.size() == 0), __PRETTY_FUNCTION__);
+            manager.addAccount(&acc1);
+            manager.addAccount(&acc2);
+            test_kit::isTruePass((manager.size() == 2), __PRETTY_FUNCTION__);
 
-        manager.addAccount(&acc1);
-        manager.addAccount(&acc2);
-        test_kit::isTruePass((manager.size() == 2), __PRETTY_FUNCTION__);
-
-        manager.removeAccount(&acc1);
-        test_kit::isTruePass((manager.size() == 1), __PRETTY_FUNCTION__);
-        
-        test_kit::printPassInformPrint(__PRETTY_FUNCTION__);
+            manager.removeAccount(&acc1);
+            test_kit::isTruePass((manager.size() == 1), __PRETTY_FUNCTION__);
+            test_kit::printPassInformPrint(__PRETTY_FUNCTION__);
+        } catch (std::invalid_argument) {
+            test_kit::printFailedInformPrint(__PRETTY_FUNCTION__);
+        }
     }
 
     void testAccountManager_01() {
         Account acc1 = Account();
         test_kit::isTruePass((acc1.getValue() == 0), __PRETTY_FUNCTION__);
 
-        AccountManager manager = AccountManager();
-        test_kit::isTruePass((manager.size() == 0), __PRETTY_FUNCTION__);
+        try {
+            AccountManager manager = AccountManager();
+            test_kit::isTruePass((manager.size() == 0), __PRETTY_FUNCTION__);
 
-        manager.addAccount(&acc1);
-        test_kit::isTruePass((manager.size() == 1), __PRETTY_FUNCTION__);
+            manager.addAccount(&acc1);
+            test_kit::isTruePass((manager.size() == 1), __PRETTY_FUNCTION__);
 
-        manager.addValueToAccount(&acc1, 4242);
-        test_kit::isTruePass((acc1.getValue() == 4242), __PRETTY_FUNCTION__);
+            manager.addValueToAccount(&acc1, 4242);
+            test_kit::isTruePass((acc1.getValue() == 4242), __PRETTY_FUNCTION__);
 
-        manager.subValueInAccount(&acc1, 1000);
-        test_kit::isTruePass((acc1.getValue() == 3242), __PRETTY_FUNCTION__);
-
-        test_kit::printPassInformPrint(__PRETTY_FUNCTION__);
+            manager.subValueInAccount(&acc1, 1000);
+            test_kit::isTruePass((acc1.getValue() == 3242), __PRETTY_FUNCTION__);
+            test_kit::printPassInformPrint(__PRETTY_FUNCTION__);
+        } catch (std::invalid_argument) {
+            test_kit::printFailedInformPrint(__PRETTY_FUNCTION__);
+        }
     }
 
     void testAccountManager_bundle() {

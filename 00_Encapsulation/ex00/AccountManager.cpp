@@ -1,6 +1,12 @@
 #include "AccountManager.hpp"
+#include <stdexcept>
 
 #define ACCOUNTS_VECTOR_DEFAULT_SIZE 20
+
+#define ERRMSG_ERROR_HEADER "Error : "
+#define ERRMSG_NULLISH_ACCOUNT "the arguments is invalid account."
+#define ERRMSG_DUPLICATED_ACCOUNT "this account is already registered."
+#define ERRMSG_NOT_REGISTERED_ACCOUNT "this account is not registered."
 
 AccountManager::AccountManager() {
     this->clientAccounts = std::vector<Account *>(ACCOUNTS_VECTOR_DEFAULT_SIZE, NULL);
@@ -12,15 +18,20 @@ AccountManager::~AccountManager() {
     // 내부에 있는 Account는 임의로 소멸하지 않기로 한다.
 }
 
+
+
 void AccountManager::addAccount(Account *account) {
+    assertInvalidAccount((!account), ERRMSG_NULLISH_ACCOUNT);
+    assertInvalidAccount((this->isAlive(account) == true), ERRMSG_DUPLICATED_ACCOUNT);
     this->clientAccounts[account->getId()] = account;
     this->AccountsSize++;
 }
 
 void AccountManager::removeAccount(Account *account) {
-    bool pop_flag = this->clientAccounts[account->getId()] != NULL ? true : false;
+    assertInvalidAccount((!account), ERRMSG_NULLISH_ACCOUNT);
+    assertInvalidAccount((this->isAlive(account) == false), ERRMSG_NOT_REGISTERED_ACCOUNT);
     this->clientAccounts[account->getId()] = NULL;
-    if (pop_flag) this->AccountsSize--;
+    this->AccountsSize--;
 }
 
 Account *AccountManager::searchAccount(Account *account) const {
@@ -31,9 +42,6 @@ Account *AccountManager::searchAccount(int id) const {
     return this->clientAccounts[id];
 }
 
-bool AccountManager::isAlive(Account *ac) const {
-    return ac != NULL ? true : false;
-}
 
 bool AccountManager::addValueToAccount(Account *ac, unsigned int value) {
     if (this->isAlive(ac) == false) {
@@ -48,13 +56,6 @@ bool AccountManager::addValueToAccount(unsigned int id, unsigned int value) {
     return this->addValueToAccount(ac, value);
 }
 
-size_t AccountManager::size() const {
-    return this->AccountsSize;
-}
-
-size_t AccountManager::capacity() const {
-    return this->clientAccounts.capacity();
-}
 
 bool AccountManager::subValueInAccount(Account *ac, unsigned int value) {
     if (this->isAlive(ac) == false) {
@@ -69,6 +70,18 @@ bool AccountManager::subValueInAccount(unsigned int id, unsigned int value) {
     return this->subValueInAccount(ac, value);
 }
 
+bool AccountManager::isAlive(Account *ac) const {
+    return ac != NULL ? true : false;
+}
+
+size_t AccountManager::size() const {
+    return this->AccountsSize;
+}
+
+size_t AccountManager::capacity() const {
+    return this->clientAccounts.capacity();
+}
+
 std::ostream &operator<<(std::ostream &os, const AccountManager &ref) {
     os << "AccountManager ---------------------" << std::endl;
     os << "- size : " << ref.size() << std::endl;
@@ -78,4 +91,11 @@ std::ostream &operator<<(std::ostream &os, const AccountManager &ref) {
             os << *found << std::endl;
     }
     return os;
+}
+
+void assertInvalidAccount(bool condition, std::string msg) {
+    if (condition) {
+        std::string errmsg = ERRMSG_ERROR_HEADER + msg;
+        throw std::invalid_argument(errmsg);
+    }
 }

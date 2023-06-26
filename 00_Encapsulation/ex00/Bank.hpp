@@ -17,10 +17,10 @@ class Bank {
 		~Bank();
 
 		int getLiquidity(void) const;
-		AccountManager &getAccountManager(void) const;
+		const AccountManager &getAccountManager(void) const;
 
-		bool addAccount(Account *account);
-		bool removeAccount(Account *account);
+		void addAccount(Account *account);
+		void removeAccount(Account *account);
 		Account *findAccountById(unsigned int id);
 };
 
