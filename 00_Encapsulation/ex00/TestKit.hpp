@@ -8,7 +8,7 @@
 namespace test_kit {
     void isTruePass(bool condition, const std::string &name) {
         if (condition == false) {
-            std::cout << "<<<<  [ test \'" << name << "\' PASSED] >>>> " << std::endl;
+            std::cout << REDB << "<<<<  [ test \'" << name << "\' PASSED] >>>> " << reset << std::endl;
             exit(1);
         }
     }
