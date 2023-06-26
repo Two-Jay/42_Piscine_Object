@@ -1,24 +1,28 @@
 #ifndef __BANK_HPP__
 #define __BANK_HPP__
 
-#include <vector>
 #include "Account.hpp"
+#include "AccountManager.hpp"
+#include "AccountFeeManager.hpp"
 
 class Bank {
 	private :
-		std::vector<Account *> clientAccounts;
+		AccountManager accountManager;
+		AccountFeeManager accountFeeManager;
 		int liquidity;
+
+		void setLiquidity(int liquidity);
+		int getLiquidity(void) const;
 
 	public :
 		Bank();
+		Bank(int liquidity);
 		~Bank();
 
-		void addAccount(Account *account);
-		void removeAccount(Account *account);
-		
-		void setLiquidity(int liquidity);
-		int getLiquidity(void) const;
-}
+		bool addAccount(Account *account);
+		bool removeAccount(Account *account);
+		Account *findAccountById(unsigned int id);
+};
 
 std::ostream &operator<<(std::ostream &os, const Bank &ref);
 
