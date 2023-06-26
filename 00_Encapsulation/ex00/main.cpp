@@ -2,6 +2,7 @@
 #include <vector>
 
 #include "Account.hpp"
+#include "AccountManager.hpp"
 
 // struct Bank {
 //   int liquidity;
@@ -53,5 +54,17 @@ int main() {
 	
 	std::cout << acc1 << std::endl;
 	std::cout << acc2 << std::endl;
+
+	AccountManager manager = AccountManager();
+
+	manager.addAccount(&acc1);
+	manager.addAccount(&acc2);
+
+	std::cout << manager << std::endl;
+
+	manager.removeAccount(&acc1);
+
+	std::cout << manager << std::endl;
+	system("leaks DivideAndConquer");
 	return 0;
 }

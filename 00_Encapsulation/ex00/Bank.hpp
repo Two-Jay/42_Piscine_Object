@@ -1,20 +1,25 @@
-// #ifndef __BANK_HPP__
-// #define __BANK_HPP__
+#ifndef __BANK_HPP__
+#define __BANK_HPP__
 
-// #include <map>
-// #include "Account.hpp"
+#include <vector>
+#include "Account.hpp"
 
-// class Bank {
-//     private :
-//         std::map<unsigned int, Account> storage;
+class Bank {
+	private :
+		std::vector<Account *> clientAccounts;
+		int liquidity;
 
-//     public :
-//         void add(Account &account);
-//         void remove(unsigned int account_id);
-//         Account &search(unsigned int id);
-//         size_t len(void) const;
+	public :
+		Bank();
+		~Bank();
 
-//         friend std::otream &operator<<(std::ostream &os, const Bank &bank);
-// }
+		void addAccount(Account *account);
+		void removeAccount(Account *account);
+		
+		void setLiquidity(int liquidity);
+		int getLiquidity(void) const;
+}
 
-// #endif
+std::ostream &operator<<(std::ostream &os, const Bank &ref);
+
+#endif

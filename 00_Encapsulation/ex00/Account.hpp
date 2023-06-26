@@ -2,6 +2,9 @@
 #define __ACCOUNT_HPP__
 
 #include <iostream>
+#include "AccountManager.hpp"
+
+
 
 class Account {
     private :
@@ -18,6 +21,8 @@ class Account {
         unsigned int getValue(void) const;
         unsigned int getId(void) const;
 };
+
+class AccountManager;
 
 std::ostream &operator<<(std::ostream &os, const Account &ref);
 

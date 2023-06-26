@@ -8,6 +8,7 @@ OBJ_DIR = ./obj
 SOURCE = main.cpp \
 		Bank.cpp \
 		Account.cpp \
+		AccountManager.cpp \
 
 OBJ = $(addprefix $(OBJ_DIR)/, $(SOURCE:.cpp=.o))
 
