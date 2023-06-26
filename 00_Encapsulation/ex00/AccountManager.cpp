@@ -4,20 +4,23 @@
 
 AccountManager::AccountManager() {
     this->clientAccounts = std::vector<Account *>(ACCOUNTS_VECTOR_DEFAULT_SIZE, NULL);
-    this->accountsSize = 0;
+    this->AccountsSize = 0;
 }
 
 AccountManager::~AccountManager() {
+    // AccountManager가 소멸될 때
+    // 내부에 있는 Account는 임의로 소멸하지 않기로 한다.
 }
 
 void AccountManager::addAccount(Account *account) {
     this->clientAccounts[account->getId()] = account;
-    this->accountsSize++;
+    this->AccountsSize++;
 }
 
 void AccountManager::removeAccount(Account *account) {
+    bool pop_flag = this->clientAccounts[account->getId()] != NULL ? true : false;
     this->clientAccounts[account->getId()] = NULL;
-    this->accountsSize--;
+    if (pop_flag) this->AccountsSize--;
 }
 
 Account *AccountManager::searchAccount(Account *account) const {
@@ -28,49 +31,51 @@ Account *AccountManager::searchAccount(int id) const {
     return this->clientAccounts[id];
 }
 
-size_t AccountManager::getAccountsSize(void) const {
-    return this->accountsSize;
+bool AccountManager::isAlive(Account *ac) const {
+    return ac != NULL ? true : false;
 }
 
-size_t AccountManager::getAccountCapacity(void) const {
-    return this->clientAccounts.size();
+bool AccountManager::addValueToAccount(Account *ac, unsigned int value) {
+    if (this->isAlive(ac) == false) {
+        return false;
+    }
+    ac->value += value;
+    return true;
 }
 
-// bool addValuetoAccount(Account *account, unsigned int value) {
-//     if (!account) return false;
-//     account->value += value;
-//     return true;
-// }
+bool AccountManager::addValueToAccount(unsigned int id, unsigned int value) {
+    Account *ac = this->searchAccount(id);
+    return this->addValueToAccount(ac, value);
+}
 
-// bool AccountManager::addValuetoAccount(int accountId, unsigned int value) {
-//     Account *account = searchAccount(accountId);
-//     if (!account) return false;
-//     account->value += value;
-//     return true;
-// }
+size_t AccountManager::size() const {
+    return this->AccountsSize;
+}
 
-// bool AccountManager::subValuetoAccount(Account *account, unsigned int value) {
-//     if (!account) return false;
-//     account->value -= value;
-//     return true;
-// }
+size_t AccountManager::capacity() const {
+    return this->clientAccounts.capacity();
+}
 
-// bool AccountManager::subValuetoAccount(int accountId, unsigned int value) {
-//     Account *account = searchAccount(accountId);
-//     if (!account) return false;
-//     account->value -= value;
-//     return true;
-// }
+bool AccountManager::subValueInAccount(Account *ac, unsigned int value) {
+    if (this->isAlive(ac) == false) {
+        return false;
+    }
+    ac->value -= value;
+    return true;
+}
+
+bool AccountManager::subValueInAccount(unsigned int id, unsigned int value) {
+    Account *ac = this->searchAccount(id);
+    return this->subValueInAccount(ac, value);
+}
 
 std::ostream &operator<<(std::ostream &os, const AccountManager &ref) {
-    os << "AccountManager size : " << ref.getAccountsSize() << std::endl;
-
-    for (size_t i = 0; i < ref.getAccountCapacity(); i++) {
-        int accountIndex = static_cast<int>(i);
-        Account *account = ref.searchAccount(accountIndex);
-        if (account != NULL) {
-            os << *account << std::endl;
-        }
+    os << "AccountManager ---------------------" << std::endl;
+    os << "- size : " << ref.size() << std::endl;
+    for (size_t i = 0; i < ref.capacity(); i++) {
+        Account *found = ref.searchAccount(i);
+        if (ref.isAlive(found))
+            os << *found << std::endl;
     }
     return os;
 }

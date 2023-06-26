@@ -4,14 +4,14 @@
 #include <iostream>
 #include "AccountManager.hpp"
 
-
-
 class Account {
     private :
         static unsigned int ACCOUNT_ID_INDEX;
 
         unsigned int id;
         unsigned int value;
+        friend bool AccountManager::addValueToAccount(Account *ac, unsigned int value);
+        friend bool AccountManager::subValueInAccount(Account *ac, unsigned int value);
 
     public :
         Account();
@@ -20,9 +20,11 @@ class Account {
 
         unsigned int getValue(void) const;
         unsigned int getId(void) const;
+
+
 };
 
-class AccountManager;
+
 
 std::ostream &operator<<(std::ostream &os, const Account &ref);
 

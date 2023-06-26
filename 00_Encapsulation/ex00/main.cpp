@@ -65,6 +65,14 @@ int main() {
 	manager.removeAccount(&acc1);
 
 	std::cout << manager << std::endl;
+
+	manager.addValueToAccount(&acc2, 4242);
+
+	std::cout << manager << std::endl;
+
+	manager.subValueInAccount(&acc2, 1000);
+
+	std::cout << manager << std::endl;
 	system("leaks DivideAndConquer");
 	return 0;
 }

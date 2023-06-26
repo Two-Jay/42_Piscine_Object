@@ -3,15 +3,13 @@
 
 #include <iostream>
 #include <vector>
-#include "Account.hpp"
 
 class Account;
 
 class AccountManager {
     private :
         std::vector<Account *> clientAccounts;
-        std::vector<bool> deletedAccountFlags;
-        size_t accountsSize;
+        size_t AccountsSize;
 
     public :
         AccountManager();
@@ -22,15 +20,18 @@ class AccountManager {
         Account *searchAccount(Account *account) const;
         Account *searchAccount(int id) const;
 
-        size_t getAccountsSize(void) const;
-        size_t getAccountCapacity(void) const;
+        bool isAlive(Account *ac) const;
+        size_t size() const;
+        size_t capacity() const;
 
-        
+        bool addValueToAccount(Account *ac, unsigned int value);
+        bool addValueToAccount(unsigned int id, unsigned int value);
+        bool subValueInAccount(Account *ac, unsigned int value);
+        bool subValueInAccount(unsigned int id, unsigned int value);
 };
 
+#include "Account.hpp"
 
 std::ostream &operator<<(std::ostream &os, const AccountManager &ref);
-
-
 
 #endif
