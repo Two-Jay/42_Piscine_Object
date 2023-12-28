@@ -21,7 +21,7 @@ class Point {
 
         void setX(float const x);
         void setY(float const y);
-
+        
         friend std::ostream &operator<<(std::ostream &o, Point const &rhs);
 };
 

@@ -2,6 +2,7 @@
 # define PARSER_HPP
 
 #include "Vector2.hpp"
+#include <vector>
 
 class Parser {
     private:
@@ -9,7 +10,7 @@ class Parser {
         Parser();
 
     public:
-        Parser(std::string path);
+        Parser(std::string &path);
         std::vector<Vector2> parse();
 };
 

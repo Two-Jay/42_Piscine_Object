@@ -44,6 +44,6 @@ void Point::setY(float const y) {
 }
 
 std::ostream &operator<<(std::ostream &o, Point const &rhs) {
-    o << "Point(" << rhs.getX() << ", " << rhs.getY() << ")";
+    o << "(" << rhs.getX() << ", " << rhs.getY() << ")";
     return o;
 }

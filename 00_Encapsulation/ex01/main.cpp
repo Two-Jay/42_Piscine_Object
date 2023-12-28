@@ -1,5 +1,6 @@
 #include <iostream>
 #include "Point.hpp"
+#include "Vector2.hpp"
 
 int main(int argc, char** argv) {
     (void)argc;
@@ -10,5 +11,11 @@ int main(int argc, char** argv) {
 
     std::cout << a << std::endl;
     std::cout << b << std::endl;
+
+    Vector2 va = Vector2(a);
+    Vector2 vb = Vector2(b);
+
+    std::cout << va << std::endl;
+    std::cout << vb << std::endl;
     return 0;
 }
