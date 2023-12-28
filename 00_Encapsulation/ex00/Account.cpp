@@ -1,36 +1,29 @@
-#include "Account.hpp"
 
-#define ACCOUNT_DEFAULT_VALUE 0
+#include "Bank.hpp"
 
-unsigned int Account::ACCOUNT_ID_INDEX = -1;
-
-
-Account::Account() {
-    this->id = ++ACCOUNT_ID_INDEX;
-    this->value = ACCOUNT_DEFAULT_VALUE;
+int Bank::Account::getId() const {
+    return _id;
 }
 
-Account::Account(const Account &origin) {
-    this->id = origin.getId();
-    this->value = origin.getValue();
+int Bank::Account::getValue() const {
+    return _value;
 }
 
-unsigned int Account::getValue(void) const {
-    return this->value;
+Bank::Account Bank::createNewAccount(void) {
+    Account account = Account();
+    account._id = _AccountIDCounts;
+    _AccountIDCounts++;
+    return (account);
 }
 
-unsigned int Account::getId(void) const {
-    return this->id;
+Bank::Account &Bank::operator[](int id) throw(std::exception) {
+    std::map<int, Account>::iterator it = _clientAccounts.find(id);
+    if (it == _clientAccounts.end())
+        throw std::runtime_error(ERRMSG("Account not found"));
+    return (it->second);
 }
 
-Account &Account::operator=(const Account &ref) {
-    if (this != &ref) {
-        this->id = ref.getId();
-        this->value = ref.getValue();
-    }
-    return *this;
-}
-
-std::ostream &operator<<(std::ostream &os, const Account &ref) {
-    return os << "[ Account No." << ref.getId() << " - Balance : $" << ref.getValue() << " ]";
+std::ostream &operator<<(std::ostream &p_os, const Bank::Account &p_account) {
+    p_os << "[" << p_account.getId() << "] - [" << p_account.getValue() << "]" << std::endl;
+    return (p_os);
 }
