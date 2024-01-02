@@ -1,19 +1,17 @@
 #ifndef VECTOR2_HPP
 # define VECTOR2_HPP
 
-#include "Point.hpp"
+#include <iostream>
 
 class Vector2 {
     private:
-        Point _point;
+        float _x;
+        float _y;
         Vector2();
 
     public:
         Vector2(float x, float y);
         Vector2(int x, int y);
-        Vector2(Point p);
-
-        const Point &getPositionPoint(void) const;
 
         friend std::ostream &operator<<(std::ostream &o, Vector2 const &rhs);
 };
