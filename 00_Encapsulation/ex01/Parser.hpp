@@ -7,10 +7,10 @@
 class Parser {
     private:
         std::string _path;
-        Parser();
 
     public:
-        Parser(std::string &path);
+        Parser();
+        void setPath(std::string &path);
         std::vector<Vector2> parse();
 };
 
