@@ -1,0 +1,16 @@
+#ifndef DEFINE_HPP
+# define DEFINE_HPP
+
+#define DEFAULT_GRAPH_POINT '.'
+#define DEFAULT_GRAPH_X_AXIS '-'
+#define DEFAULT_GRAPH_Y_AXIS '|'
+#define DEFAULT_GRAPH_ZERO '+'
+#define DEFAULT_GRAPH_VECTOR 'x'
+
+#define DEFAULT_ADDITIONAL_SPACE_Y 2
+#define DEFAULT_ADDITIONAL_SPACE_X 1
+
+#define XLABEL 4
+#define YLABEL 8
+
+#endif //DEFINE_HPP

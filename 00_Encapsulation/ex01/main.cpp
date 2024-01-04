@@ -12,7 +12,8 @@ int main(int argc, char** argv) {
         parser.setPath(path);
         std::vector<Vector2> vecs = parser.parse();
         Graph graph = Graph(vecs);
-        std::cout << graph;
+        graph.save("./resource", "output", "txt");
+        system("leaks ex01");
     } catch (std::exception &e) {
         std::cout << e.what() << std::endl;
     }

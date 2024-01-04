@@ -1,8 +1,10 @@
 #include "Graph.hpp"
-#include <limits>
 #include "utils.hpp"
+#include "define.hpp"
+
+#include <limits>
 #include <iomanip>
-#include "Label.hpp"
+#include <fstream>
 #include <stdexcept>
 
 Graph::Graph() :
@@ -64,11 +66,7 @@ void Graph::remove(Vector2 &vec) {
     }
 }
 
-#define DEFAULT_GRAPH_POINT '.'
-#define DEFAULT_GRAPH_X_AXIS '-'
-#define DEFAULT_GRAPH_Y_AXIS '|'
-#define DEFAULT_GRAPH_ZERO '+'
-#define DEFAULT_GRAPH_VECTOR 'x'
+
 
 std::vector<std::vector<char> > Graph::generateGraph(Label &xl, Label &yl) const {
     std::vector<std::vector<char> > graph;
@@ -95,23 +93,14 @@ std::vector<std::vector<char> > Graph::generateGraph(Label &xl, Label &yl) const
     for (std::vector<Vector2>::const_iterator it = _vecs.begin(); it != _vecs.end(); ++it) {
         long x = roundf(it->getX());
         long y = roundf(it->getY());
-        if (x < xl.getMin() || x > xl.getMax() || y < yl.getMin() || y > yl.getMax()) {
-            continue;
-        }
         graph[y_max - y][x - x_min] = DEFAULT_GRAPH_VECTOR;
     }
     return graph;
 }
 
 std::ostream &operator<<(std::ostream &o, Graph const &rhs) {
-    long y_max = ft_expandrf(rhs.y_max);
-    long y_min = ft_expandrf(rhs.y_min);
-    long x_max = ft_expandrf(rhs.x_max);
-    long x_min = ft_expandrf(rhs.x_min);
-    Label yl = Label(y_min, y_max, 2);
-    Label xl = Label(x_min, x_max, 1);
-    o << "y max : " << y_max << ", y min : " << y_min << std::endl;
-    o << "x max : " << x_max << ", x min : " << x_min << std::endl;
+    Label yl = rhs.createLabel(YLABEL);
+    Label xl = rhs.createLabel(XLABEL);
     std::vector<std::string>::reverse_iterator ylit = yl.rbegin();
     std::vector<std::string>::iterator xlit = xl.begin();
     std::vector<std::vector<char> > graph = rhs.generateGraph(xl, yl);
@@ -152,3 +141,32 @@ std::ostream &operator<<(std::ostream &o, Graph const &rhs) {
 // 출력시에는 물론 그래프 내부의 그리드도 이와 같은 간격을 유지해야 한다.
 // 정렬을 위해, 그래프 내부의 그리드 값 (ex. ., -, |, +, x) 은 모두 1자리로 고정하고, 숫자의 첫번째 자리에 맞추어서 출력한다.
 // 따라서 setw(number_length)에 오른쪽 정렬을 적용하면 된다.
+
+
+void Graph::save(std::string path, std::string name, std::string format) throw(std::runtime_error) {
+    std::ofstream ofs;
+    std::string filename = path + "/" + name + "." + format;
+    ofs.open(path + "/" + name + "." + format);
+    if (ofs.is_open() && ofs.good()) {
+        if (format == "txt") {
+            ofs << *this;
+        } else if (format == "png") {
+            // TODO
+        } else {
+            throw std::runtime_error("Invalid format");
+        }
+        ofs.close();
+    } else {
+        throw std::runtime_error("File open failed");
+    }
+}
+
+Label Graph::createLabel(int flag) const throw(std::runtime_error)  {
+    if (flag == YLABEL) {
+        return Label(ft_expandrf(this->y_min), ft_expandrf(this->y_max), DEFAULT_ADDITIONAL_SPACE_Y);
+    } else if (flag == XLABEL) {
+        return Label(ft_expandrf(this->x_min), ft_expandrf(this->x_max), DEFAULT_ADDITIONAL_SPACE_X);
+    } else {
+        throw std::runtime_error("Invalid flag");
+    }
+}

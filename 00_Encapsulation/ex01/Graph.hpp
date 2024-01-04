@@ -13,6 +13,8 @@ class Graph {
         float y_min;
         float y_max;
         std::vector<std::vector<char> > generateGraph(Label &xl, Label &yl) const;
+        Label createLabel(int flag) const throw(std::runtime_error);
+
 
     public :
         Graph();
@@ -21,7 +23,9 @@ class Graph {
 
         void add(Vector2 &vec);
         void remove(Vector2 &vec);
-        Vector2 &find(Vector2 &vec) throw (std::runtime_error);
+        void save(std::string path, std::string name, std::string format) throw(std::runtime_error);
+
+        Vector2 &find(Vector2 &vec) throw(std::runtime_error);
         friend std::ostream &operator<<(std::ostream &o, Graph const &rhs);
 };
 
