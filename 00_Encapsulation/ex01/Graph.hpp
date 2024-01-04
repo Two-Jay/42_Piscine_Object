@@ -12,16 +12,16 @@ class Graph {
         float x_max;
         float y_min;
         float y_max;
-
+        std::vector<std::vector<char> > generateGraph(Label &xl, Label &yl) const;
 
     public :
         Graph();
         Graph(std::vector<Vector2> &vecs);
         ~Graph();
 
-        std::vector<std::vector<char> > generateGraph(Label &xl, Label &yl) const;
         void add(Vector2 &vec);
         void remove(Vector2 &vec);
+        Vector2 &find(Vector2 &vec) throw (std::runtime_error);
         friend std::ostream &operator<<(std::ostream &o, Graph const &rhs);
 };
 

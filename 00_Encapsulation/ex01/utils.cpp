@@ -29,7 +29,7 @@ long ft_numlen(long num) {
     return ret;
 }
 
-long ft_roundf(float num) {
+long ft_expandrf(float num) {
     long ret = (long)num;
     if (num > 0 && num - ret > 0) {
         ret++;
@@ -39,3 +39,11 @@ long ft_roundf(float num) {
     }
     return ret;
 }
+
+long roundf(float x) {
+    if (x < 0.0)
+        return static_cast<long>(x - 0.5);
+    else
+        return static_cast<long>(x + 0.5);
+}
+

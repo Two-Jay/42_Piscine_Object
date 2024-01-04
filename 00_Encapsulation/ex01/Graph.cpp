@@ -3,6 +3,7 @@
 #include "utils.hpp"
 #include <iomanip>
 #include "Label.hpp"
+#include <stdexcept>
 
 Graph::Graph() :
     _vecs(std::vector<Vector2>()),
@@ -26,6 +27,16 @@ Graph::Graph(std::vector<Vector2> &vecs) :
 
 Graph::~Graph() {
     _vecs.clear();
+}
+
+
+Vector2 &Graph::find(Vector2 &vec) throw (std::runtime_error) {
+    for (std::vector<Vector2>::iterator it = _vecs.begin(); it != _vecs.end(); ++it) {
+        if (*it == vec) {
+            return *it;
+        }
+    }
+    throw std::runtime_error("Vector2 not found");
 }
 
 void Graph::add(Vector2 &vec) {
@@ -81,14 +92,22 @@ std::vector<std::vector<char> > Graph::generateGraph(Label &xl, Label &yl) const
         }
         graph.push_back(row);
     }
+    for (std::vector<Vector2>::const_iterator it = _vecs.begin(); it != _vecs.end(); ++it) {
+        long x = roundf(it->getX());
+        long y = roundf(it->getY());
+        if (x < xl.getMin() || x > xl.getMax() || y < yl.getMin() || y > yl.getMax()) {
+            continue;
+        }
+        graph[y_max - y][x - x_min] = DEFAULT_GRAPH_VECTOR;
+    }
     return graph;
 }
 
 std::ostream &operator<<(std::ostream &o, Graph const &rhs) {
-    long y_max = ft_roundf(rhs.y_max);
-    long y_min = ft_roundf(rhs.y_min);
-    long x_max = ft_roundf(rhs.x_max);
-    long x_min = ft_roundf(rhs.x_min);
+    long y_max = ft_expandrf(rhs.y_max);
+    long y_min = ft_expandrf(rhs.y_min);
+    long x_max = ft_expandrf(rhs.x_max);
+    long x_min = ft_expandrf(rhs.x_min);
     Label yl = Label(y_min, y_max, 2);
     Label xl = Label(x_min, x_max, 1);
     o << "y max : " << y_max << ", y min : " << y_min << std::endl;
