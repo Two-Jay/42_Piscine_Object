@@ -13,6 +13,10 @@ class Vector2 {
         Vector2(float x, float y);
         Vector2(int x, int y);
 
+        float getX() const;
+        float getY() const;
+        bool operator==(Vector2 const &rhs) const;
+        bool operator!=(Vector2 const &rhs) const;
         friend std::ostream &operator<<(std::ostream &o, Vector2 const &rhs);
 };
 

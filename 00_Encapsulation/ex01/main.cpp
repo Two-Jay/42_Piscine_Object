@@ -1,5 +1,6 @@
 #include <iostream>
 #include "Vector2.hpp"
+#include "Graph.hpp"
 #include "Parser.hpp"
 
 int main(int argc, char** argv) {
@@ -10,6 +11,8 @@ int main(int argc, char** argv) {
         Parser parser = Parser();
         parser.setPath(path);
         std::vector<Vector2> vecs = parser.parse();
+        Graph graph = Graph(vecs);
+        std::cout << graph;
     } catch (std::exception &e) {
         std::cout << e.what() << std::endl;
     }
