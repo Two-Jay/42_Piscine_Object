@@ -7,6 +7,6 @@
 std::vector<std::string> split(std::string str, char delimiter);
 long ft_numlen(long num);
 long ft_expandrf(float num);
-long roundf(float x);
+long ft_roundf(float x);
 
 #endif //UTILS_HPP

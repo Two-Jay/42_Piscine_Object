@@ -68,13 +68,17 @@ void Graph::remove(Vector2 &vec) {
 
 
 
-std::vector<std::vector<char> > Graph::generateGraph(Label &xl, Label &yl) const {
+std::vector<std::vector<char> > Graph::generateGraph(Label &xl, Label &yl) const throw(std::runtime_error){
+    if (this->_vecs.empty() == true 
+        || xl.getLabelSize() > ERROR_LABEL_SIZE_LIMIT
+        || yl.getLabelSize() > ERROR_LABEL_SIZE_LIMIT)
+        throw std::runtime_error("Graph :: Cannot draw graph");
     std::vector<std::vector<char> > graph;
     long y_max = yl.getMax();
     long y_min = yl.getMin();
     long x_max = xl.getMax();
     long x_min = xl.getMin();
-
+    
     for (long i = y_max; i >= y_min; i--) {
         std::vector<char> row;
         for (long j = x_min; j <= x_max; j++) {
@@ -98,7 +102,19 @@ std::vector<std::vector<char> > Graph::generateGraph(Label &xl, Label &yl) const
     return graph;
 }
 
-std::ostream &operator<<(std::ostream &o, Graph const &rhs) {
+void Graph::adjust_resize() {
+    if ((this->x_max - this->x_min) < BASIC_GAP) {
+        x_max += BASIC_ADJUST_VALUE;
+        x_min -= BASIC_ADJUST_VALUE;
+    }
+    if ((this->y_max - this->y_min) < BASIC_GAP) {
+        y_max += BASIC_ADJUST_VALUE;
+        y_min -= BASIC_ADJUST_VALUE;
+    }
+}
+
+std::ostream &operator<<(std::ostream &o, Graph &rhs) {
+    rhs.adjust_resize();
     Label yl = rhs.createLabel(YLABEL);
     Label xl = rhs.createLabel(XLABEL);
     std::vector<std::string>::reverse_iterator ylit = yl.rbegin();

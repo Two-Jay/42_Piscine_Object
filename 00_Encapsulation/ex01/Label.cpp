@@ -1,5 +1,6 @@
 #include "Label.hpp"
 #include "utils.hpp"
+#include "define.hpp"
 
 Label::Label() {}
 
@@ -9,6 +10,9 @@ Label::Label(long min, long max) {
     // compare numberlength of min and max
     int flag = min < max * -1 ? -1 : 1;
     this->print_width = flag == -1 ? ft_numlen(min) : ft_numlen(max);
+    if (this->print_width < MINIMUM_LABEL_RPINTWIDTH) {
+        this->print_width += 1;
+    }
     this->labels = std::vector<std::string>();
     for (long i = min; i <= max; i++) {
         std::string label = std::to_string(i);
@@ -66,4 +70,8 @@ long Label::getMax() const {
 
 long Label::getPrintWidth() const {
     return this->print_width;
+}
+
+int Label::getLabelSize() const {
+    return this->labels.size();
 }

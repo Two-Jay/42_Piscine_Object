@@ -24,6 +24,7 @@ class Label {
 
         long getMin() const;
         long getMax() const;
+        int getLabelSize() const;
         long getPrintWidth() const;
 };
 

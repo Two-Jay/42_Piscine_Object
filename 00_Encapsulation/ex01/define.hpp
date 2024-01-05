@@ -13,4 +13,10 @@
 #define XLABEL 4
 #define YLABEL 8
 
+#define ERROR_LABEL_SIZE_LIMIT 1000
+#define BASIC_GAP 5.0f
+#define BASIC_ADJUST_VALUE 3.0f
+
+#define MINIMUM_LABEL_RPINTWIDTH 2
+
 #endif //DEFINE_HPP

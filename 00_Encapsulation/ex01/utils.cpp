@@ -40,7 +40,7 @@ long ft_expandrf(float num) {
     return ret;
 }
 
-long roundf(float x) {
+long ft_roundf(float x) {
     if (x < 0.0)
         return static_cast<long>(x - 0.5);
     else

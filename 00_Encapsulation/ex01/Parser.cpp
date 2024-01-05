@@ -2,6 +2,7 @@
 #include "utils.hpp"
 
 #include <stdexcept>
+#include <sstream>
 #include <iostream>
 #include <fstream>
 
@@ -11,14 +12,31 @@ void Parser::setPath(std::string &path) {
     this->_path = path;
 }
 
-std::vector<Vector2> Parser::parse() {
+float Parser::getFloatValue(std::string s)  throw (std::runtime_error) {
+    std::istringstream iss(s);
+    float f;
+    iss >> f; 
+    if (iss.eof() && !iss.fail()) {
+        return f;
+    } else {
+        throw std::runtime_error("Parser : Invalid float format " + s);
+    }
+}
+
+std::vector<Vector2> Parser::parse() throw (std::runtime_error) {
     std::vector<Vector2> ret;
-    // open file by path
+
     std::ifstream file(_path);
     if (!file.is_open()) {
         throw std::runtime_error("File not found");
     }
-    // read file line by line
+    // chech the file is empty
+    file.seekg(0, std::ios::end);
+    if (file.tellg() == 0) {
+        throw std::runtime_error("File is empty");
+    }
+    file.seekg(0, std::ios::beg);
+
     std::string line;
     while (std::getline(file, line)) {
         // parse line
@@ -29,8 +47,8 @@ std::vector<Vector2> Parser::parse() {
         }
         // check token is float 
         try {
-            float x = std::stof(tokens[0]);
-            float y = std::stof(tokens[1]);
+            float x = this->getFloatValue(tokens[0]);
+            float y = this->getFloatValue(tokens[1]);
             ret.push_back(Vector2(x, y));
         } catch (std::exception &e) {
             throw std::runtime_error("Invalid file format : " + std::string(e.what()));
