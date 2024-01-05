@@ -12,7 +12,7 @@ OBJS			= $(addprefix $(OBJDIR), $(OBJS_FILE))
 
 all:			$(NAME)
 
-$(NAME):		$(OBJS)
+$(NAME):		check_obj $(OBJS)
 				$(CXX) $(CXXFLAGS) $(OBJS) -o $(NAME)
 				@echo "\033[0;92m* $(NAME) was created *\033[0m"
 				@./$(NAME)
@@ -20,11 +20,15 @@ $(NAME):		$(OBJS)
 $(OBJDIR)%.o : %.cpp
 				$(CXX) $(CXXFLAGS) $< -c -o $@
 
+check_obj:
+				@mkdir $(OBJDIR)
 clean:
 				@$(RM) $(OBJDIR)/*.o
+				@$(RM) $(OBJDIR)
 
 fclean:			
 				@$(RM) $(OBJDIR)/*.o
+				@$(RM) $(OBJDIR)
 				@$(RM) $(NAME)
 				@echo "\033[0;91m* $(NAME) was removed *\033[0m"
 

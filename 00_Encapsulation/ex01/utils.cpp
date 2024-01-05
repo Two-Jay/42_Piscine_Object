@@ -47,3 +47,8 @@ long ft_roundf(float x) {
         return static_cast<long>(x + 0.5);
 }
 
+std::string ft_ltos(long n) {
+    std::stringstream ss;
+    ss << n;
+    return ss.str();
+}

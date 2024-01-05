@@ -31,8 +31,8 @@ Label::Label(long min, long max, int additonal_space) {
     this->print_width = flag == -1 ? ft_numlen(min) : ft_numlen(max);
     this->print_width += additonal_space;
     this->labels = std::vector<std::string>();
-    for (long i = min; i <= max; i++) {
-        std::string label = std::to_string(i);
+    for (long i = min; i <= max; i++) { 
+        std::string label = ft_ltos(i);
         while (static_cast<long>(label.length()) < this->print_width) {
             label = " " + label;
         }
