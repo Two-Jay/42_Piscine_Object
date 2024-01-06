@@ -21,7 +21,7 @@ $(OBJDIR)%.o : %.cpp
 				$(CXX) $(CXXFLAGS) $< -c -o $@
 
 check_obj:
-				@mkdir $(OBJDIR)
+				@mkdir -p $(OBJDIR)
 clean:
 				@$(RM) $(OBJDIR)/*.o
 				@$(RM) $(OBJDIR)
