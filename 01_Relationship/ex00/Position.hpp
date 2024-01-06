@@ -12,6 +12,9 @@ class Position {
 
     public :
         Position(int x, int y, int z);
+        Position(Position const & src);
+        ~Position();
+        Position & operator=(Position const & rhs);
 
         int getX() const;
         int getY() const;

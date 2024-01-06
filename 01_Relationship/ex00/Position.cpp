@@ -6,6 +6,24 @@ Position::Position(int x, int y, int z) : _x(x), _y(y), _z(z) {
     return;
 }
 
+Position::Position(Position const & src) {
+    *this = src;
+    return;
+}
+
+Position::~Position(void) {
+    return;
+}
+
+Position & Position::operator=(Position const & rhs) {
+    if (this != &rhs) {
+        this->_x = rhs.getX();
+        this->_y = rhs.getY();
+        this->_z = rhs.getZ();
+    }
+    return *this;
+}
+
 int Position::getX(void) const {
     return this->_x;
 }
