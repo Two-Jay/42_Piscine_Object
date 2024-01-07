@@ -8,8 +8,10 @@ class Hammer : public Tool {
     public :
         Hammer();
         Hammer(Hammer const & src);
-        ~Hammer();
+        virtual ~Hammer();
         Hammer & operator=(Hammer const & rhs);
+
+        virtual Tool *clone() const;
 
         friend std::ostream & operator<<(std::ostream & o, Hammer const & rhs);
 };

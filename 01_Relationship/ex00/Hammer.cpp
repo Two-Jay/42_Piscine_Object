@@ -17,6 +17,10 @@ Hammer & Hammer::operator=(Hammer const & rhs) {
     return *this;
 }
 
+Tool *Hammer::clone() const {
+    return new Hammer(*this);
+}
+
 std::ostream & operator<<(std::ostream & o, Hammer const & rhs) {
     o << "Hammer : [number of use = " << rhs.getNumberOfUse() << "]" << std::endl;
     return o;

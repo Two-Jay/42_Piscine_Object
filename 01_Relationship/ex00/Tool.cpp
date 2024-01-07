@@ -1,4 +1,6 @@
 #include "Tool.hpp"
+#include "Shovel.hpp"
+#include "Hammer.hpp"
 
 Tool::Tool() : _numberOfUse(0) {
 }
@@ -10,7 +12,7 @@ Tool::Tool(Tool const & src) {
 Tool::~Tool() {
 }
 
-Tool & Tool::operator=(Tool const & rhs) {
+Tool &Tool::operator=(Tool const & rhs) {
     if (this != &rhs) {
         this->_numberOfUse = rhs.getNumberOfUse();
     }
@@ -25,10 +27,10 @@ void Tool::use() {
     this->_numberOfUse++;
 }
 
-std::ostream & operator<<(std::ostream & o, Tool const & rhs) {
-    o << "Tool : [number of use = " << rhs.getNumberOfUse() << "]" << std::endl;
-    return o;
+void Tool::release() {
+    this->_worker = NULL;
 }
 
-
-
+void Tool::take(Worker *worker) {
+    this->_worker = worker;
+}

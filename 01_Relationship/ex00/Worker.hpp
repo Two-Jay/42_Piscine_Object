@@ -4,11 +4,15 @@
 #include <iostream>
 #include "Position.hpp"
 #include "Statistic.hpp"
+#include "Tool.hpp"
+
+class Tool;
 
 class Worker {
     private :
         Position _position;
         Statistic _statistic;
+        Tool *_tool;
         Worker();
 
     public :
@@ -19,8 +23,11 @@ class Worker {
 
         const Position &getPosition() const;
         const Statistic &getStatistic() const;
+        const Tool *getTool() const;
 
         void moveBy(int x, int y, int z);
+        void give(Tool *tool);
+        void takeAway();
         
         friend std::ostream & operator<<(std::ostream & o, Worker const & rhs);
 };

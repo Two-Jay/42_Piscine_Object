@@ -8,8 +8,10 @@ class Shovel : public Tool {
     public :
         Shovel();
         Shovel(Shovel const & src);
-        ~Shovel();
+        virtual ~Shovel();
         Shovel & operator=(Shovel const & rhs);
+
+        virtual Tool *clone() const;
 
         friend std::ostream & operator<<(std::ostream & o, Shovel const & rhs);
 };

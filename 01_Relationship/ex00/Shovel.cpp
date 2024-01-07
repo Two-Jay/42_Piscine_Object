@@ -17,6 +17,10 @@ Shovel & Shovel::operator=(Shovel const & rhs) {
     return *this;
 }
 
+Tool *Shovel::clone() const {
+    return new Shovel(*this);
+}
+
 std::ostream & operator<<(std::ostream & o, Shovel const & rhs) {
     o << "Shovel : [number of use = " << rhs.getNumberOfUse() << "]" << std::endl;
     return o;
