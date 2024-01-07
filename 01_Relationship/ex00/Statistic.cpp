@@ -2,7 +2,12 @@
 
 #include <iostream>
 
-Statistic::Statistic(int level, int exp) : _level(level), _exp(exp) {
+Statistic::Statistic(void) : _level(0), _exp(0), _maxExp(0) {
+    this->setMaxExp();
+}
+
+Statistic::Statistic(int level, int exp) : _level(level), _exp(exp), _maxExp(0) {
+    this->setMaxExp();
 }
 
 Statistic::Statistic(Statistic const & src) {
@@ -34,6 +39,16 @@ void Statistic::levelUp() {
 
 void Statistic::gainExp(int exp) {
     this->_exp += exp;
+    if (this->_exp >= this->_maxExp) {
+        this->levelUp();
+        this->setMaxExp();
+        // calculate the remaining exp
+        this->_exp = this->_exp - this->_maxExp;
+    }
+}
+
+void Statistic::setMaxExp() {
+    this->_maxExp = this->_level * 100 + (this->_level * 50);
 }
 
 std::ostream & operator<<(std::ostream & o, Statistic const & rhs) {

@@ -7,9 +7,13 @@ class Statistic {
     private :
         int _level;
         int _exp;
-        Statistic();
+        int _maxExp;
+
+        void levelUp();
+        void setMaxExp();
 
     public :
+        Statistic();
         Statistic(int level, int exp);
         Statistic(Statistic const & src);
         ~Statistic();
@@ -18,7 +22,6 @@ class Statistic {
         int getLevel() const;
         int getExp() const;
         
-        void levelUp();
         void gainExp(int exp);
         
         friend std::ostream & operator<<(std::ostream & o, Statistic const & rhs);

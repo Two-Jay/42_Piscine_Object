@@ -2,6 +2,10 @@
 
 #include <iostream>
 
+Position::Position(void) : _x(0), _y(0), _z(0) {
+    return;
+}
+
 Position::Position(int x, int y, int z) : _x(x), _y(y), _z(z) {
     return;
 }
@@ -52,12 +56,6 @@ void Position::setXYZ(int x, int y, int z) {
     this->_x = x;
     this->_y = y;
     this->_z = z;
-}
-
-void Position::moveBy(int x, int y, int z) {
-    this->_x += x;
-    this->_y += y;
-    this->_z += z;
 }
 
 std::ostream & operator<<(std::ostream & o, Position const & rhs) {

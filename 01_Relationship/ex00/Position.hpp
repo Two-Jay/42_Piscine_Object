@@ -8,9 +8,13 @@ class Position {
         int _x;
         int _y;
         int _z;
-        Position();
+
+        void setX(int x);
+        void setY(int y);
+        void setZ(int z);
 
     public :
+        Position();
         Position(int x, int y, int z);
         Position(Position const & src);
         ~Position();
@@ -19,12 +23,9 @@ class Position {
         int getX() const;
         int getY() const;
         int getZ() const;
-        void setX(int x);
-        void setY(int y);
-        void setZ(int z);
+
         
         void setXYZ(int x, int y, int z);
-        void moveBy(int x, int y, int z);
         
         friend std::ostream & operator<<(std::ostream & o, Position const & rhs);
 };
