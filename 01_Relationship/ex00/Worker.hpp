@@ -25,9 +25,14 @@ class Worker {
         const Statistic &getStatistic() const;
         const Tool *getTool() const;
 
+        template <typename ToolType>
+        const ToolType *getTool() const;
+
         void moveBy(int x, int y, int z);
         void give(Tool *tool);
         void takeAway();
+
+        void work();
         
         friend std::ostream & operator<<(std::ostream & o, Worker const & rhs);
 };

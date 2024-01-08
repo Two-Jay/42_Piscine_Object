@@ -12,8 +12,16 @@ int main(int argc, char** argv) {
 
     Shovel *shovel = new Shovel();
     std::cout << *shovel;
-    
+
     w1.give(shovel);
     std::cout << w1;
+
+    w1.work();
+    std::cout << w1;
+
+    w1.takeAway();
+    std::cout << w1;
+    
+    delete shovel;
     return 0;
 }

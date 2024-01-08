@@ -35,6 +35,12 @@ const Tool *Worker::getTool() const {
     return this->_tool;
 }
 
+template <typename ToolType>
+const ToolType *Worker::getTool() const {
+    Tool *tool = dynamic_cast<ToolType *>(const_cast<Tool*>(this->_tool));
+    return tool != NULL ? tool : NULL;
+}
+
 void Worker::give(Tool *tool) {
     this->_tool = tool;
     tool->take(this);
@@ -58,6 +64,15 @@ bool isHammer(const Tool *tool) {
     return dynamic_cast<Hammer *>(const_cast<Tool*>(tool)) != NULL;
 }
 
+void Worker::work() {
+    if (this->_tool != NULL) {
+        this->_tool->use();
+        std::cout << "Worker : Complete work with " << this->_tool->getNumberOfUse() << " uses." << std::endl;
+    } else {
+        std::cout << "Warning : No tool to work" << std::endl;
+    }
+}
+
 std::ostream & operator<<(std::ostream & o, Worker const & rhs) {
     o << "Worker : {  " << std::endl;
     o << TAB(1) << "" << rhs.getPosition();
@@ -71,6 +86,7 @@ std::ostream & operator<<(std::ostream & o, Worker const & rhs) {
     } else {
         o << "none" << std::endl;
     }
+
     o << "}" << std::endl;
     return o;
 }
